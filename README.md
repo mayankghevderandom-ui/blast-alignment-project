@@ -6,7 +6,7 @@ A reproducible protein sequence analysis workflow using Python, Biopython, and N
 
 This project uses Green Fluorescent Protein (GFP; UniProt accession P42212) as a reference. Three amino-acid substitutions are introduced to create a query sequence, which is analyzed using local BLASTP and global pairwise alignment.
 
-**Key findings:** The query matched the GFP reference at 98.739% identity across 238 amino acids. Pairwise alignment recovered all three introduced substitutions. In a five-protein panel, BLASTP reported GFP as the strongest hit and red fluorescent protein as a second significant hit.
+**Key findings:** The query matched the GFP reference at 98.739% identity across 238 amino acids. Pairwise alignment recovered all three introduced substitutions. In a five-protein panel, BLASTP reported GFP as the strongest hit and red fluorescent protein as a second significant hit. In a negative control, 0 of 100 composition-preserving shuffled sequences produced a BLASTP hit at an E-value threshold of 1e-5.
 
 ## Mutation Visualization
 
@@ -38,10 +38,12 @@ blast-alignment-project/
 │   ├── source_GFP.fasta
 │   ├── query.fasta
 │   ├── mutations.csv
-│   └── protein_panel.fasta
+│   ├── protein_panel.fasta
+│   └── shuffled_query.fasta
 ├── results/
 │   ├── blast_local.txt
 │   ├── blast_panel.txt
+│   ├── blast_shuffled.txt
 │   ├── mismatches.csv
 │   └── mutation_positions.png
 ├── create_mutations.py
@@ -51,6 +53,7 @@ blast-alignment-project/
 ├── pairwise_alignment.py
 ├── plot_mutations.py
 ├── run_blast.py
+├── negative_control.py
 ├── environment.yml
 ├── .gitignore
 ├── LICENSE
@@ -158,6 +161,12 @@ blastp \
   -evalue 1e-5
 ```
 
+### 8. Run the shuffled-sequence negative control
+
+```bash
+python negative_control.py
+```
+
 ## Introduced Substitutions
 
 | Position | Reference | Query | Mutation | BLOSUM62 score |
@@ -255,6 +264,8 @@ The shuffled sequence is saved to data/shuffled_query.fasta, and the BLAST outpu
 - The substitutions were introduced artificially and do not demonstrate changes in protein stability, structure, or function.
 - Only substitutions were tested; insertions and deletions were not evaluated.
 - Sequence similarity alone does not establish identical biological function.
+
+The local database contains only five proteins; BLAST E-values depend on database size, so these results are not directly comparable with searches against large databases such as NCBI's.
 
 ## Future Work
 
