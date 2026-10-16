@@ -247,6 +247,20 @@ A negative control was performed by shuffling the amino-acid order of the GFP-de
 None of the 100 shuffled sequences produced a reported BLASTP hit at the specified threshold. This result applies only to this database and these 100 shuffled sequences.
 Run the control from the project root with `python negative_control.py`. All 100 shuffled sequences are saved to `data/shuffled_queries.fasta`. The file `data/shuffled_query.fasta` is overwritten during each search and therefore contains only the final shuffled sequence. Since no shuffled sequence produced a BLASTP hit, `results/blast_shuffled.txt` is empty; it stores reported hits when any occur.
 
+## Validation Checks
+
+After running `python negative_control.py`, verify the saved shuffled sequences and BLAST output:
+
+```bash
+# Confirm that 100 shuffled FASTA records were saved
+grep -c '^>' data/shuffled_queries.fasta
+
+# Count the BLAST hit rows (zero is expected for the current run)
+wc -l results/blast_shuffled.txt
+```
+
+The expected record count is 100. The current experiment produced zero BLASTP hits at an E-value threshold of 1e-5, so `results/blast_shuffled.txt` is empty. If the database, query, or software settings change, rerun the control and check the actual output rather than assuming the same result.
+    
 ## Interpretation
 
 - GFP is the strongest hit in this small database, as expected because the query was derived from the GFP reference.
