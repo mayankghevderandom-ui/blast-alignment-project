@@ -230,26 +230,19 @@ The alignment script recovered all three known substitutions:
 
 ## Shuffled-Sequence Negative Control
 
-A negative control was performed by shuffling the amino-acid order of the GFP-derived query while preserving its length and amino-acid composition. A fixed random seed (42) was used for reproducibility.
-
-The shuffled sequence was searched against the same five-protein local database using BLASTP with an E-value threshold of 1e-5.
+A negative control was performed by shuffling the amino-acid order of the GFP-derived query 100 times while preserving its length and amino-acid composition. Seeds 0 through 99 were used for reproducibility. Each shuffled sequence was searched against the same five-protein local database using BLASTP with an E-value threshold of 1e-5.
 
 | Measure | Result |
 |---|---|
-| Original query length | 238 amino acids |
-| Shuffled query length | 238 amino acids |
-| Amino-acid composition preserved | Yes |
-| Random seed | 42 |
-| Reported BLAST hits | None at 1e-5 |
+| Number of shuffled sequences | 100 |
+| Length of each sequence | 238 amino acids |
+| Amino-acid composition preserved | Yes, for every shuffle |
+| Random seeds | 0-99 |
+| Sequences producing a BLAST hit at 1e-5 | 0 of 100 |
 
-The absence of reported hits suggests that preserving amino-acid composition without preserving residue order was insufficient to produce a significant match in this database. This result applies to this particular shuffle and database and does not establish biological function.
+None of the 100 shuffled sequences produced a reported BLASTP hit at the specified threshold. This result applies only to this database and these 100 shuffled sequences.
 
-To reproduce the control, activate the blast-align Conda environment, ensure the local protein-panel database exists, and run:
-
-    python negative_control.py
-
-The shuffled sequence is saved to data/shuffled_query.fasta, and the BLAST output is saved to results/blast_shuffled.txt.
-
+Run the control from the project root with `python negative_control.py`. All shuffled sequences are saved to `data/shuffled_queries.fasta`. The individual sequence used for each BLASTP search is written to `data/shuffled_query.fasta`, and any reported BLAST hits are saved to `results/blast_shuffled.txt`.
 ## Interpretation
 
 - GFP is the strongest hit in this small database, as expected because the query was derived from the GFP reference.
