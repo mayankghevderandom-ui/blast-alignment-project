@@ -39,7 +39,8 @@ blast-alignment-project/
 │   ├── query.fasta
 │   ├── mutations.csv
 │   ├── protein_panel.fasta
-│   └──└── shuffled_query.fasta
+│   ├── shuffled_query.fasta
+│   └── shuffled_queries.fasta
 
 ├── results/
 │   ├── blast_local.txt
@@ -168,6 +169,8 @@ blastp \
 python negative_control.py
 ```
 
+This generates 100 shuffled queries, searches each against the local five-protein database, and reports how many produce a BLASTP hit. All 100 sequences are saved to `data/shuffled_queries.fasta`.
+
 ## Introduced Substitutions
 
 | Position | Reference | Query | Mutation | BLOSUM62 score |
@@ -242,7 +245,7 @@ A negative control was performed by shuffling the amino-acid order of the GFP-de
 | Sequences producing a BLAST hit at 1e-5 | 0 of 100 |
 
 None of the 100 shuffled sequences produced a reported BLASTP hit at the specified threshold. This result applies only to this database and these 100 shuffled sequences.
-Run the control from the project root with `python negative_control.py`. All shuffled sequences are saved to `data/shuffled_queries.fasta`. The individual sequence used for each BLASTP search is written to `data/shuffled_query.fasta`, and any reported BLAST hits are saved to `results/blast_shuffled.txt`.
+Run the control from the project root with `python negative_control.py`. All 100 shuffled sequences are saved to `data/shuffled_queries.fasta`. The file `data/shuffled_query.fasta` is overwritten during each search and therefore contains only the final shuffled sequence. Since no shuffled sequence produced a BLASTP hit, `results/blast_shuffled.txt` is empty; it stores reported hits when any occur.
 
 ## Interpretation
 
