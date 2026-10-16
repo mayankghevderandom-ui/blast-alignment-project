@@ -201,6 +201,28 @@ The alignment script recovered all three known substitutions:
 
 `All mutations recovered: True`
 
+## Shuffled-Sequence Negative Control
+
+A negative control was performed by shuffling the amino-acid order of the GFP-derived query while preserving its length and amino-acid composition. A fixed random seed (42) was used for reproducibility.
+
+The shuffled sequence was searched against the same five-protein local database using BLASTP with an E-value threshold of 1e-5.
+
+| Measure | Result |
+|---|---|
+| Original query length | 238 amino acids |
+| Shuffled query length | 238 amino acids |
+| Amino-acid composition preserved | Yes |
+| Random seed | 42 |
+| Reported BLAST hits | None at 1e-5 |
+
+The absence of reported hits suggests that preserving amino-acid composition without preserving residue order was insufficient to produce a significant match in this database. This result applies to this particular shuffle and database and does not establish biological function.
+
+To reproduce the control, activate the blast-align Conda environment, ensure the local protein-panel database exists, and run:
+
+    python negative_control.py
+
+The shuffled sequence is saved to data/shuffled_query.fasta, and the BLAST output is saved to results/blast_shuffled.txt.
+
 ## Interpretation
 
 - GFP is the strongest hit in this small database, as expected because the query was derived from the GFP reference.
@@ -221,7 +243,6 @@ The alignment script recovered all three known substitutions:
 - Expand the database with more fluorescent proteins and diverse protein families.
 - Test insertions and deletions.
 - Compare local and global alignment methods and alternative scoring parameters.
-- Add a shuffled-sequence negative control.
 - Explore structural effects through a separate protein-modelling workflow.
 
 ## References
