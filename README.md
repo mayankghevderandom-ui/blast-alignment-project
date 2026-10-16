@@ -39,7 +39,8 @@ blast-alignment-project/
 │   ├── query.fasta
 │   ├── mutations.csv
 │   ├── protein_panel.fasta
-│   └── shuffled_query.fasta
+│   └──└── shuffled_query.fasta
+
 ├── results/
 │   ├── blast_local.txt
 │   ├── blast_panel.txt
