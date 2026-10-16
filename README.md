@@ -260,7 +260,7 @@ wc -l results/blast_shuffled.txt
 ```
 
 The expected record count is 100. The current experiment produced zero BLASTP hits at an E-value threshold of 1e-5, so `results/blast_shuffled.txt` is empty. If the database, query, or software settings change, rerun the control and check the actual output rather than assuming the same result.
-    
+
 ## Interpretation
 
 - GFP is the strongest hit in this small database, as expected because the query was derived from the GFP reference.
