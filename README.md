@@ -184,16 +184,34 @@ BLOSUM62 scores describe substitution scores in an alignment matrix; they are no
 
 BLAST displays the E-value as `0.0`; this is a numerical display limit and does not mean the true value is mathematically zero.
 
-### Five-protein BLASTP panel
+### Five-Protein BLASTP Panel
 
-The database contains five protein sequences. At an E-value threshold of `1e-5`, two hits were reported.
+The local protein database contains five protein sequences retrieved from UniProt on 15 October 2026.
 
-| Subject | Identity | Alignment length | Mismatches | Gap openings | E-value | Bit score |
-|---|---:|---:|---:|---:|---:|---:|
-| GFP (P42212) | 98.739% | 238 | 3 | 0 | 0.0 displayed | 488 |
-| Red fluorescent protein (Q9U6Y8) | 25.688% | 218 | 149 | 6 | 2.39e-13 | 55.1 |
+#### Protein Panel
+
+| No. | Protein | UniProt Accession | Organism | Sequence Length |
+|---:|---|---|---|---:|
+| 1 | Green fluorescent protein (GFP) | P42212 | *Aequorea victoria* | 238 aa |
+| 2 | Red fluorescent protein | Q9U6Y8 | *Discosoma* sp. | 225 aa |
+| 3 | Lysozyme C | P61626 | *Homo sapiens* | 148 aa |
+| 4 | Insulin | P01308 | *Homo sapiens* | 110 aa |
+| 5 | Myoglobin | P02144 | *Homo sapiens* | 154 aa |
+
+#### BLASTP Results
+
+The GFP-derived query was searched against this local database using BLASTP with an E-value threshold of `1e-5`. Two significant hits were reported.
+
+| Subject Protein | Accession | Identity | Alignment Length | Mismatches | Gap Openings | E-value | Bit Score |
+|---|---|---:|---:|---:|---:|---:|---:|
+| Green fluorescent protein | P42212 | 98.739% | 238 | 3 | 0 | 0.0* | 488 |
+| Red fluorescent protein | Q9U6Y8 | 25.688% | 218 | 149 | 6 | 2.39e-13 | 55.1 |
 
 The remaining three proteins did not produce reported hits at this threshold.
+
+*Note:* The E-value `0.0` is BLAST's displayed value for an extremely small E-value; it does not mean the true value is mathematically zero.
+
+This is a small demonstration database, not a comprehensive protein database. Because the query was derived from GFP, the GFP match is expected rather than an independent identification of an unknown protein.
 
 ### Mutation validation
 
