@@ -26,6 +26,8 @@ output_file.parent.mkdir(parents=True, exist_ok=True)
 
 total_shuffles = 100
 shuffles_with_hits = 0
+all_shuffled_records = []
+all_shuffled_file = Path("data/shuffled_queries.fasta")
 
 # Start with an empty results file.
 output_file.write_text("")
@@ -46,7 +48,7 @@ for seed in range(total_shuffles):
     )
 
     SeqIO.write(shuffled_record, shuffled_file, "fasta")
-
+    all_shuffled_records.append(shuffled_record)
     subprocess.run(
         [
             "blastp",
@@ -70,6 +72,8 @@ for seed in range(total_shuffles):
     temporary_output.unlink(missing_ok=True)
 
 print(f"Original query length: {len(original_sequence)}")
+SeqIO.write(all_shuffled_records, all_shuffled_file, "fasta")
+print(f"Saved all shuffled sequences: {all_shuffled_file}")
 print(f"Total shuffled sequences tested: {total_shuffles}")
 print("Amino-acid composition preserved in every shuffle: True")
 print(f"Shuffles producing a BLAST hit: {shuffles_with_hits}")
